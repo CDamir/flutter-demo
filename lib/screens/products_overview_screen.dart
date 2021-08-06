@@ -21,6 +21,9 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // Provider.of<Cart>...;
+    // if we set a provider listner here, that means whole build method will
+    // re-run when sth change
     return Scaffold(
       appBar: AppBar(
         title: Text('MyShop'),
@@ -49,11 +52,15 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
               ),
             ],
           ),
+          // only this widget will update when sth change in Cart
           Consumer<Cart>(
             builder: (_, cart, ch) => Badge(
               child: ch,
               value: cart.itemCount.toString(),
             ),
+            // this widget wont be rebuild when sth change, beause it's defined
+            // outside builder method, and passed as thrid argument `ch`
+            // only `value` will update
             child: IconButton(
               icon: Icon(
                 Icons.shopping_cart,
